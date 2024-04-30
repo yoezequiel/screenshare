@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #111;
+    color: #eee;
+}
+
+.title {
+    text-align: center;
+    margin-top: 20px;
+}
+
+img.video-feed {
+    max-width: 300px;
+    margin: 0 auto;
+    display: block;
+}
+
+.camera {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+
+.video-container,
+.screen-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.video-feed,
+.screen-feed {
+    width: 100%;
+    height: auto;
+}
+
+.screen-container {
+    position: relative;
+}
+
+#fullscreen-btn {
+    display: block;
+    width: 100px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#fullscreen-btn:hover {
+    background-color: #0056b3;
+}
+
+#fullscreen-btn:focus {
+    outline: none;
+}
+
+@media screen and (max-width: 600px) {
+    .camera {
+        padding: 10px;
+    }
+}

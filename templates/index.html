@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ScreenShare</title>
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/index.css' ) }}" />
+        <script src="js/axios.min.js"></script>
+    </head>
+    <body>
+        <h1 class="title">ScreenShare</h1>
+
+        <div class="camera">
+            <div class="video-container">
+                <img
+                    src="{{ url_for('video_feed') }}"
+                    alt=""
+                    class="video-feed" />
+            </div>
+
+            <div class="screen-container">
+                <img id="screen" alt="" class="screen-feed" />
+                <button id="fullscreen-btn">Fullscreen</button>
+            </div>
+        </div>
+
+        <script>
+            function fetchImage() {
+                const url = "/screen.png?random=" + new Date().getTime();
+                axios
+                    .get(url, {
+                        responseType: "blob",
+                    })
+                    .then(function (response) {
+                        document.querySelector(".screen-feed").src =
+                            URL.createObjectURL(response.data);
+                        // Recursive call to fetch image periodically
+                        setTimeout(fetchImage, 500);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+
+            document.addEventListener("DOMContentLoaded", fetchImage);
+
+            function launchFullscreen(element) {
+                if (element.requestFullscreen) {
+                    element.requestFullscreen();
+                } else if (element.mozRequestFullScreen) {
+                    element.mozRequestFullScreen();
+                } else if (element.webkitRequestFullscreen) {
+                    element.webkitRequestFullscreen();
+                } else if (element.msRequestFullscreen) {
+                    element.msRequestFullscreen();
+                }
+            }
+
+            document
+                .getElementById("fullscreen-btn")
+                .addEventListener("click", function () {
+                    var screenContainer =
+                        document.querySelector(".screen-container");
+                    launchFullscreen(screenContainer);
+                });
+        </script>
+    </body>
+</html>

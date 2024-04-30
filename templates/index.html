@@ -36,8 +36,7 @@
                     .then(function (response) {
                         document.querySelector(".screen-feed").src =
                             URL.createObjectURL(response.data);
-                        // Recursive call to fetch image periodically
-                        setTimeout(fetchImage, 500);
+                        setTimeout(fetchImage, 100);
                     })
                     .catch(function (error) {
                         console.log(error);

@@ -8,7 +8,7 @@ import socket
 
 app = Flask(__name__)
 
-camera_enabled = True  # Variable global para controlar el estado de la cámara
+camera_enabled = True
 
 
 @app.route("/")
@@ -18,7 +18,7 @@ def index():
 
 def gen(camera):
     while True:
-        if camera_enabled:  # Solo obtener el frame si la cámara está activada
+        if camera_enabled:
             frame = camera.get_frame()
             yield (
                 b"--frame\r\n" b"Content-Type: image/jpeg\r\n\r\n" + frame + b"\r\n\r\n"
@@ -27,7 +27,7 @@ def gen(camera):
 
 @app.route("/video_feed")
 def video_feed():
-    if camera_enabled:  # Solo iniciar el feed si la cámara está activada
+    if camera_enabled:
         return Response(
             gen(VideoCamera()), mimetype="multipart/x-mixed-replace; boundary=frame"
         )
@@ -51,7 +51,6 @@ def send_js(path):
 def get_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
-        # no necesita ser alcanzable
         s.connect(("10.255.255.255", 1))
         IP = s.getsockname()[0]
     except:
@@ -66,9 +65,15 @@ if __name__ == "__main__":
     parser.add_argument(
         "--camera", choices=["on", "off"], default="on", help="Estado de la cámara"
     )
+    parser.add_argument(
+        "--port",
+        type=int,
+        default=5000,
+        help="Puerto para ejecutar la aplicación Flask",
+    )
     args = parser.parse_args()
 
     if args.camera == "off":
         camera_enabled = False
 
-    app.run(host=get_ip(), debug=True)
+    app.run(host=get_ip(), port=args.port, debug=True)

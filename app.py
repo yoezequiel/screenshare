@@ -61,9 +61,9 @@ def get_ip():
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Control de cámara")
+    parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--camera", choices=["on", "off"], default="on", help="Estado de la cámara"
+        "--camera", choices=["on", "off"], default="off", help="Estado de la cámara"
     )
     parser.add_argument(
         "--port",

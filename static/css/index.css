@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #111;
+    background-color: #333;
     color: #eee;
 }
 
@@ -33,6 +33,10 @@ img.video-feed {
 .screen-feed {
     width: 100%;
     height: auto;
+}
+
+.screen-feed {
+    border: 1px solid #4f4f4f;
 }
 
 .screen-container {
